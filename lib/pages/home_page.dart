@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../widgets/product_card.dart';
 import '../models/product.dart';
-import 'product_detail_page.dart'; // pastikan ini ada
+import '../utils/constants.dart';
+import 'product_detail_page.dart';
+import 'product_management_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,6 +37,10 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
+
+            _buildHeader(context),
+
+            const SizedBox(height: 25),
 
             _buildBanner(),
 
@@ -78,6 +84,33 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildHeader(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text(
+          "Luminance",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ProductManagementPage()),
+            );
+          },
+          icon: const Icon(Icons.admin_panel_settings, size: 18),
+          label: const Text('Admin'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildBanner() {
     return Container(
       height: 160,
@@ -101,7 +134,7 @@ class _HomePageState extends State<HomePage> {
               offset: Offset(0, 1.5),
               blurRadius: 6,
               color: Colors.black54,
-            )
+            ),
           ],
         ),
       ),
